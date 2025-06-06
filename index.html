@@ -1,165 +1,84 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>蓝宇科技</title>
-<style>
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
-  html, body {
-    height: 100%;
-    font-family: Consolas, "Courier New", monospace;
-    color: #00ffcc;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background: url('https://wp-cdn.4ce.cn/v2/tVsVaEm.jpeg') no-repeat center center fixed;
-    background-size: cover;
-    overflow: hidden;
-    position: relative;
-  }
-  canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
-    pointer-events: none;
-  }
-  header {
-    background: rgba(0,0,0,0.5);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    font-size: 1.5rem;
-    user-select: none;
-    /* box-shadow 去掉横线 */
-  }
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-  }
-  nav a {
-    color: #00ffcc;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: color 0.3s;
-    cursor: pointer;
-  }
-  nav a:hover {
-    color: #ff00ff;
-  }
-  .hero {
-    flex: 1 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 5rem;
-    font-weight: 900;
-    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
-    user-select: none;
-    min-height: 60vh;
-    z-index: 1;
-    text-align: center;
-    padding: 1rem;
-  }
-  footer {
-    background: rgba(0,0,0,0.5);
-    color: #00ffcc;
-    text-align: center;
-    padding: 1rem 0;
-    font-size: 1rem;
-    user-select: none;
-    /* box-shadow 去掉横线 */
-  }
-  @media (max-width: 600px) {
-    .hero {
-      font-size: 3rem;
-    }
-    nav ul {
-      gap: 1rem;
-    }
-  }
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>蓝宇科技</title>
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <style>
+        /* 这里是你之前设计的样式，我简单写个示范渐变背景和字体颜色 */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://wp-cdn.4ce.cn/v2/tVsVaEm.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            color: #0f0;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        header {
+            padding: 20px;
+            font-weight: bold;
+            font-size: 24px;
+            text-align: left;
+            color: #0f0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        main h1 {
+            font-size: 4rem;
+            margin: 0;
+            text-shadow: 0 0 5px #0f0;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            color: #0f0;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.25rem;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #aff;
+        }
+        footer {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #0f0;
+        }
+        footer a {
+            color: #0f0;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #aff;
+        }
+    </style>
 </head>
 <body>
-
-  <canvas id="matrix"></canvas>
-
-  <header>
-    <div>蓝宇科技</div>
-    <nav>
-      <ul>
-        <li><a href="#">首页</a></li>
-        <li><a href="#">关于</a></li>
-        <li><a href="#">服务</a></li>
-        <li><a id="contact-link" href="#">联系</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <div class="hero">LanYu</div>
-
-  <footer>
-    <p>联系方式：admin@lanyu.org</p>
-    <p>&copy; 2025 蓝宇 版权所有</p>
-  </footer>
-
-<script>
-// 动态数字雨效果
-var canvas = document.getElementById('matrix');
-var ctx = canvas.getContext('2d');
-
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
-
-var chinese = "アァイィウエエオカキクケコサシスセソタチツテトナニヌネノABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-chinese = chinese.split("");
-
-var font_size = 16;
-var columns = canvas.width / font_size;
-var drops = [];
-for (var x = 0; x < columns; x++)
-  drops[x] = 1;
-
-function draw() {
-  ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = "#00ffcc";
-  ctx.font = font_size + "px Consolas";
-  for (var i = 0; i < drops.length; i++) {
-    var text = chinese[Math.floor(Math.random() * chinese.length)];
-    ctx.fillText(text, i * font_size, drops[i] * font_size);
-
-    if (drops[i] * font_size > canvas.height && Math.random() > 0.975)
-      drops[i] = 0;
-    drops[i]++;
-  }
-}
-
-setInterval(draw, 33);
-
-window.addEventListener('resize', () => {
-  canvas.height = window.innerHeight;
-  canvas.width = window.innerWidth;
-  columns = canvas.width / font_size;
-  drops = [];
-  for (var x = 0; x < columns; x++)
-    drops[x] = 1;
-});
-
-// 联系跳转
-document.getElementById('contact-link').addEventListener('click', function(e){
-  e.preventDefault();
-  window.open('https://t.me/LanYu1', '_blank');
-});
-</script>
-
+    <header>蓝宇科技</header>
+    <main>
+        <h1>LanYu</h1>
+        <nav>
+            <a href="#">首页</a>
+            <a href="#">产品</a>
+            <a href="https://t.me/LanYu1" target="_blank" rel="noopener noreferrer">联系</a>
+        </nav>
+    </main>
+    <footer>
+        联系邮箱：admin@lanyu.org<br />
+        &copy; 2025 蓝宇 版权所有
+    </footer>
 </body>
 </html>
